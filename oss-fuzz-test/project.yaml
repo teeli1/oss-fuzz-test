@@ -1,0 +1,6 @@
+homepage: "https://github.com/teeli1/oss-fuzz-test"
+main_repo: 'https://github.com/teeli/oss-fuzz-test'
+primary_contact: "ppaper"
+auto_ccs :
+  - "ppaper"
+language: c
