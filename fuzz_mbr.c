@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include <stddef.h>
+#include <string.h>
 #include "work1.h"  // Include the header for your functions
 
 // Fuzzing entry point for libFuzzer
