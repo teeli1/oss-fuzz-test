@@ -1,4 +1,5 @@
 FROM gcr.io/oss-fuzz-base/base-builder
-RUN git clone https://github.com/teeli1/oss-fuzz-test 
+RUN mkdir $SRC/oss-fuzz-test
 COPY build.sh $SRC/
+COPY *.c *.h $SRC/oss-fuzz-test
 WORKDIR $SRC/oss-fuzz-test

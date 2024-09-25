@@ -2,6 +2,10 @@
 #define WORK1_H
 
 #include <stdint.h>
+#include <string.h>
+#define SIGNATURE 0xAA55
+
+#pragma pack(1)
 
 // MBR 파티션 엔트리 구조체
 typedef struct {
@@ -19,6 +23,9 @@ typedef struct {
     pe_t partitions[4];
     uint16_t signature; 
 } MBR_t;
+
+#pragma pack()
+
 
 // 함수 선언
 MBR_t ReadFile_MBR(char *filename);
