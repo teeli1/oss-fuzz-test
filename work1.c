@@ -117,31 +117,3 @@ void read_ebr(const char *filename, uint32_t ebr_start_addr, uint32_t total_lba_
     }
 }
 
-int main(int argc, char *argv[]) {
-    if (argc != 2) {
-        fprintf(stderr, "Usage: %s <filename>\n", argv[0]);
-        return EXIT_FAILURE;
-    }
-
-    MBR_t mbr;
-    if (ReadFile_MBR(argv[1], &mbr) != 0) {
-        return EXIT_FAILURE;
-    }
-
-    if (mbr.signature != SIGNATURE) {
-        fprintf(stderr, "Invalid MBR signature\n");
-        return EXIT_FAILURE;
-    }
-
-    for (int i = 0; i < 4; i++) {
-        pe_t partition = mbr.partitions[i];
-        if (partition.type == 0x05 || partition.type == 0x0F) {
-            read_ebr(argv[1], partition.lba_start, partition.lba_start);
-        } else {
-            print_partition(&partition);
-        }
-    }
-
-    return EXIT_SUCCESS;
-}
-

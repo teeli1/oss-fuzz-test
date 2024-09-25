@@ -1,37 +1,27 @@
 #include <stdint.h>
 #include <stddef.h>
-#include <stdio.h>
-#include <string.h>
-#include "work1.h"
+#include "work1.h"  // Include the header for your functions
 
-// A simple function to process and fuzz MBR data from a buffer.
-int FuzzProcessMBR(const uint8_t* data, size_t size) {
+// Fuzzing entry point for libFuzzer
+int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size) {
+    // Create an MBR structure to hold the parsed data
+    MBR_t mbr;
+    
+    // If the data is too small to be an MBR, skip processing
     if (size < sizeof(MBR_t)) {
-        return 0;  // If the input size is too small, return early.
+        return 0;
     }
 
-    MBR_t mbr;
-    // Copy the data into the MBR structure.
+    // Process the MBR data from the buffer
     memcpy(&mbr, data, sizeof(MBR_t));
 
-    // Validate the MBR signature.
+    // Check the signature and process partitions if valid
     if (mbr.signature == SIGNATURE) {
-        // Iterate through the partitions and print their details.
         for (int i = 0; i < 4; i++) {
-            pe_t partition = mbr.partitions[i];
-            print_partition(&partition);
+            print_partition(&mbr.partitions[i]);
         }
     }
 
-    return 0;  // Return 0 to indicate success.
+    return 0;  // Return 0 on success
 }
 
-// The entry point for libFuzzer.
-int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size) {
-    // Process the MBR data using the fuzzing data.
-    FuzzProcessMBR(data, size);
-
-    // If needed, you can add more specific fuzzing logic for EBR here.
-
-    return 0;
-}
