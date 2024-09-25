@@ -27,7 +27,7 @@ int FuzzProcessMBR(const uint8_t* data, size_t size) {
 }
 
 // The entry point for libFuzzer.
-extern "C" int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size) {
+int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size) {
     // Process the MBR data using the fuzzing data.
     FuzzProcessMBR(data, size);
 
@@ -35,4 +35,3 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size) {
 
     return 0;
 }
-
