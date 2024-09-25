@@ -4,6 +4,7 @@
 #include <stdint.h>
 #include <string.h>
 #define SIGNATURE 0xAA55
+#define SECTOR_SIZE 512
 
 #pragma pack(1)
 
@@ -31,8 +32,7 @@ typedef struct {
 MBR_t ReadFile_MBR(char *filename);
 MBR_t ReadFile_EBR(char *filename, uint32_t ebr_start_addr);
 void read_ebr(char *filename, uint32_t ebr_start_addr, uint32_t total_lba_addr, uint32_t cur_lba_addr);
-const char* print_fstype(uint8_t type);
 void print_partition(const pe_t* partition);
+const char* print_fstype(uint8_t type);
 
 #endif // WORK1_H
-
